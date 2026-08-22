@@ -127,8 +127,8 @@ def get_current_user(authorization: Optional[str] = Header(None), user_id: Optio
             u = get_user_by_email(token)
             if u:
                 return u
-    # Default fallback to Student Alex Rivera (ID 1)
-    return get_user_by_id(1)
+    # Return None for unauthenticated requests — RBAC will enforce access
+    return None
 
 # Helper to log privacy-safe campus events
 def record_activity_event(event_type: str, title: str, description: str, zone: str, icon: str = "sparkles"):

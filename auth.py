@@ -8,12 +8,13 @@ import hashlib
 import hmac
 import html
 import json
+import os
 import re
 from typing import Optional, Dict, Any, List
 from fastapi import HTTPException, status
 from database import get_db
 
-SECRET_KEY = "campusconnect-hackathon-secure-salt-key"
+SECRET_KEY = os.environ.get("CAMPUSCONNECT_SECRET_KEY", "campusconnect-hackathon-secure-salt-key")
 ALLOWED_ROLES = {"STUDENT", "MODERATOR", "ADMIN"}
 
 def hash_password(password: str) -> str:
@@ -21,9 +22,7 @@ def hash_password(password: str) -> str:
     return hmac.new(SECRET_KEY.encode("utf-8"), password.encode("utf-8"), hashlib.sha256).hexdigest()
 
 def verify_password(plain_password: str, password_hash: str) -> bool:
-    """Verifies plain password against hash (supporting demo fallback)."""
-    if plain_password == password_hash:
-        return True
+    """Verifies plain password against stored HMAC-SHA256 hash."""
     return hmac.compare_digest(hash_password(plain_password), password_hash)
 
 def sanitize_text(text: Optional[str], max_length: int = 1000) -> str:
