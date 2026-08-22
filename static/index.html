@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusConnect AI — Intelligent Campus Item Recovery Network</title>
+  <meta name="description" content="An intelligent campus item recovery network proactive reconnection powered by explainable AI, recovery intelligence engine, zero-leak verification, and safe custody handovers." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            campus: {
+              50: '#F0F7FF',
+              100: '#E0EFFE',
+              500: '#3B82F6',
+              600: '#2563EB',
+              700: '#1D4ED8',
+              800: '#1E3E62',
+              900: '#0B192C',
+              950: '#080D1A'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body class="bg-[#080D1A] text-slate-100 antialiased flex flex-col min-h-screen">
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#0B192C]/95 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <button onclick="navigateTo('home')" class="flex items-center gap-3 text-left focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-xl p-1" aria-label="CampusConnect Home">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20" aria-hidden="true">
+          <i data-lucide="sparkles" class="w-5 h-5 text-white animate-pulse"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-extrabold tracking-tight text-white">Campus<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Connect</span></span>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-blue-500/20 border border-blue-400/30 text-blue-300 rounded-full">AI Recovery</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Intelligent Campus Item Recovery Network</p>
+        </div>
+      </button>
+
+      <!-- Main Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1" aria-label="Main Navigation">
+        <button onclick="navigateTo('home')" id="nav-home" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">Network Home</button>
+        <button onclick="navigateTo('feed')" id="nav-feed" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">Campus Feed</button>
+        <button onclick="navigateTo('matches')" id="nav-matches" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-blue-400 transition flex items-center gap-1.5">
+          <span>Smart Matches</span>
+          <span id="nav-match-count" class="px-1.5 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full" aria-label="Active match count">3</span>
+        </button>
+        <button onclick="navigateTo('intelligence')" id="nav-intelligence" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-blue-400 transition flex items-center gap-1.5">
+          <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i>
+          <span>Campus Intelligence</span>
+        </button>
+        <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">My Vault</button>
+        <button onclick="navigateTo('admin')" id="nav-admin" class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-blue-400 transition flex items-center gap-1">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-cyan-400" aria-hidden="true"></i>
+          <span>Security Desk</span>
+        </button>
+      </nav>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-2.5">
+        
+        <!-- 🚀 3-Minute Hackathon Demo Button -->
+        <button onclick="openDemoModal()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white shadow-md shadow-purple-500/20 border border-purple-400/30 transition transform active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-400" aria-label="Launch 3-Minute Live Hackathon Showcase">
+          <i data-lucide="play" class="w-3.5 h-3.5 fill-current" aria-hidden="true"></i>
+          <span>Live Demo Flow</span>
+        </button>
+
+        <!-- Quick Role Switcher Pill Dropdown -->
+        <div class="relative">
+          <button id="roleDropdownBtn" onclick="toggleRoleDropdown()" class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 hover:border-slate-600 text-xs font-medium text-slate-200 transition focus:outline-none focus:ring-2 focus:ring-blue-400" aria-haspopup="true" aria-expanded="false" aria-label="Switch User Role Persona">
+            <img id="currentUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Current User Profile" class="w-5 h-5 rounded-full object-cover border border-blue-400/40" />
+            <div class="text-left hidden lg:block">
+              <span id="currentUserName" class="block font-semibold text-slate-200 truncate max-w-[100px]">Alex Rivera</span>
+              <span id="currentUserRoleTag" class="block text-[10px] text-blue-400 font-bold uppercase">Student</span>
+            </div>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400" aria-hidden="true"></i>
+          </button>
+          
+          <!-- Role Dropdown Menu -->
+          <div id="roleDropdownMenu" class="hidden absolute right-0 mt-2 w-64 glass-dropdown rounded-xl p-2 z-50" role="menu" aria-label="Persona Switcher Menu">
+            <div class="px-3 py-2 border-b border-slate-800">
+              <p class="text-xs font-semibold text-slate-200">Hackathon Role Switcher</p>
+              <p class="text-[11px] text-slate-400">Switch persona instantly to evaluate RBAC</p>
+            </div>
+            <div class="py-1 space-y-1">
+              <button onclick="switchUserRole('STUDENT')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs hover:bg-slate-800 text-left transition focus:outline-none focus:bg-slate-800" role="menuitem">
+                <span class="w-2 h-2 rounded-full bg-blue-400" aria-hidden="true"></span>
+                <div>
+                  <p class="font-semibold text-slate-200">Alex Rivera (Student)</p>
+                  <p class="text-[10px] text-slate-400">Report, verify & claim personal belongings</p>
+                </div>
+              </button>
+              <button onclick="switchUserRole('MODERATOR')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs hover:bg-slate-800 text-left transition focus:outline-none focus:bg-slate-800" role="menuitem">
+                <span class="w-2 h-2 rounded-full bg-emerald-400" aria-hidden="true"></span>
+                <div>
+                  <p class="font-semibold text-slate-200">Officer Marcus (Security)</p>
+                  <p class="text-[10px] text-slate-400">Verify claims & manage custody stations</p>
+                </div>
+              </button>
+              <button onclick="switchUserRole('ADMIN')" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs hover:bg-slate-800 text-left transition focus:outline-none focus:bg-slate-800" role="menuitem">
+                <span class="w-2 h-2 rounded-full bg-purple-400" aria-hidden="true"></span>
+                <div>
+                  <p class="font-semibold text-slate-200">Dr. Eleanor Vance (Dean / Admin)</p>
+                  <p class="text-[10px] text-slate-400">Campus hotspot analytics & audit logs</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications Bell -->
+        <div class="relative">
+          <button id="notifBellBtn" onclick="toggleNotifications()" class="p-2 rounded-lg bg-slate-800/80 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white transition relative focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+            <i data-lucide="bell" class="w-4 h-4" aria-hidden="true"></i>
+            <span id="unreadNotifBadge" class="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 text-[10px] font-bold text-white rounded-full flex items-center justify-center">1</span>
+          </button>
+
+          <!-- Notifications Tray -->
+          <div id="notificationsTray" class="hidden absolute right-0 mt-2 w-80 sm:w-96 glass-dropdown rounded-2xl p-3 z-50" role="region" aria-label="Notification Center">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800">
+              <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                <i data-lucide="bell-ring" class="w-3.5 h-3.5 text-blue-400" aria-hidden="true"></i> Live Notifications
+              </span>
+              <button onclick="markAllNotificationsRead()" class="text-[11px] text-blue-400 hover:underline focus:outline-none">Mark all read</button>
+            </div>
+            <div id="notificationsList" class="max-h-72 overflow-y-auto space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button onclick="toggleMobileNav()" class="md:hidden p-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Toggle navigation menu">
+          <i data-lucide="menu" class="w-4 h-4" aria-hidden="true"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="mobileNav" class="hidden md:hidden border-t border-slate-800 bg-[#0B192C] px-4 py-3 space-y-2" aria-label="Mobile Navigation">
+      <button onclick="navigateTo('home'); toggleMobileNav();" class="w-full text-left py-2 text-sm font-medium text-slate-300">Network Home</button>
+      <button onclick="navigateTo('feed'); toggleMobileNav();" class="w-full text-left py-2 text-sm font-medium text-slate-300">Campus Feed</button>
+      <button onclick="navigateTo('matches'); toggleMobileNav();" class="w-full text-left py-2 text-sm font-medium text-slate-300">Smart Matches 🔥</button>
+      <button onclick="navigateTo('intelligence'); toggleMobileNav();" class="w-full text-left py-2 text-sm font-medium text-slate-300">Campus Intelligence Center</button>
+      <button onclick="navigateTo('dashboard'); toggleMobileNav();" class="w-full text-left py-2 text-sm font-medium text-slate-300">My Vault</button>
+      <button onclick="navigateTo('admin'); toggleMobileNav();" class="w-full text-left py-2 text-sm font-medium text-slate-300">Security & Admin</button>
+      <div class="pt-2 flex gap-2">
+        <button onclick="openReportModal('LOST'); toggleMobileNav();" class="flex-1 py-2 text-xs font-semibold bg-rose-600 text-white rounded-lg text-center">I Lost Something</button>
+        <button onclick="openReportModal('FOUND'); toggleMobileNav();" class="flex-1 py-2 text-xs font-semibold bg-emerald-600 text-white rounded-lg text-center">I Found Something</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8" role="main">
+    
+    <!-- ==================== VIEW 1: HERO & HOME ==================== -->
+    <section id="view-home" class="space-y-8">
+      
+      <!-- Hero Section: Intelligent Campus Recovery Network -->
+      <div class="relative rounded-3xl overflow-hidden glass-panel p-8 sm:p-12 border border-slate-800/80 gradient-hero">
+        <div class="max-w-3xl space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping" aria-hidden="true"></span>
+            Proactive Autonomous Reconnection Network
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            Lost it? Found it?
+            <span class="block gradient-text mt-1">Let AI reconnect it.</span>
+          </h1>
+
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Traditional lost-and-found is a passive bulletin board where reports get buried. <span class="text-white font-semibold">CampusConnect AI</span> is a continuous recovery intelligence network that actively matches belongings, explains why, verifies rightful owners, and coordinates safe handovers.
+          </p>
+
+          <!-- Large Action Buttons -->
+          <div class="flex flex-wrap gap-4 pt-2">
+            <button onclick="openReportModal('LOST')" class="flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-rose-600/30 transition transform hover:-translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-rose-400" aria-label="Report a Lost Item">
+              <i data-lucide="help-circle" class="w-5 h-5" aria-hidden="true"></i>
+              <span>🔴 I Lost Something</span>
+            </button>
+
+            <button onclick="openReportModal('FOUND')" class="flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-emerald-600/30 transition transform hover:-translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400" aria-label="Report a Found Item">
+              <i data-lucide="check-circle-2" class="w-5 h-5" aria-hidden="true"></i>
+              <span>🟢 I Found Something</span>
+            </button>
+
+            <button onclick="openDemoModal()" class="flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm transition focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Run 3-Minute Interactive Demo">
+              <i data-lucide="sparkles" class="w-4 h-4 text-amber-400" aria-hidden="true"></i>
+              <span>🚀 3-Minute Live Demo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Visual Proactive Architecture Diagram -->
+        <div class="mt-10 pt-8 border-t border-slate-800/80">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">Autonomous Reconnection Workflow</p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-center text-xs">
+            
+            <div class="glass-panel p-3 rounded-xl border border-rose-500/20 bg-rose-500/5">
+              <div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-xs">1</div>
+              <p class="font-bold text-white text-[11px]">Observe Reports</p>
+              <p class="text-[10px] text-slate-400">Vault & Private Marks</p>
+            </div>
+
+            <div class="glass-panel p-3 rounded-xl border border-blue-500/20 bg-blue-500/5">
+              <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-xs">2</div>
+              <p class="font-bold text-white text-[11px]">Analyze Similarity</p>
+              <p class="text-[10px] text-slate-400">6 Multi-Weights</p>
+            </div>
+
+            <div class="glass-panel p-3 rounded-xl border border-cyan-500/20 bg-cyan-500/5">
+              <div class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-xs">3</div>
+              <p class="font-bold text-white text-[11px]">Detect Match</p>
+              <p class="text-[10px] text-slate-400">Explainable Checkmarks</p>
+            </div>
+
+            <div class="glass-panel p-3 rounded-xl border border-amber-500/20 bg-amber-500/5">
+              <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-xs">4</div>
+              <p class="font-bold text-white text-[11px]">Notify Parties</p>
+              <p class="text-[10px] text-slate-400">Continuous Monitoring</p>
+            </div>
+
+            <div class="glass-panel p-3 rounded-xl border border-purple-500/20 bg-purple-500/5">
+              <div class="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-xs">5</div>
+              <p class="font-bold text-white text-[11px]">Verify Owner</p>
+              <p class="text-[10px] text-slate-400">Zero-Leak Challenge</p>
+            </div>
+
+            <div class="glass-panel p-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
+              <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-xs">6</div>
+              <p class="font-bold text-white text-[11px]">Safe Recovery</p>
+              <p class="text-[10px] text-slate-400">Dual-Sign Handover</p>
+            </div>
+
+            <div class="glass-panel p-3 rounded-xl border border-indigo-500/20 bg-indigo-500/5 col-span-2 sm:col-span-1">
+              <div class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center mx-auto mb-1.5 font-bold text-xs">7</div>
+              <p class="font-bold text-white text-[11px]">Campus Insights</p>
+              <p class="text-[10px] text-slate-400">Predictive Safety</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Campus Activity Ticker (Privacy-Safe Real-Time Feed) -->
+      <div class="glass-panel p-4 sm:p-5 rounded-2xl space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Live Campus Activity Stream</h3>
+          </div>
+          <span class="text-[11px] text-slate-400">Continuous 24/7 Monitoring</span>
+        </div>
+
+        <div id="liveActivityTicker" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+          <!-- Dynamically loaded from /api/activity/feed -->
+        </div>
+      </div>
+
+      <!-- Live Impact Metrics Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-panel p-5 rounded-2xl text-center">
+          <p class="text-2xl sm:text-3xl font-extrabold text-white">1,240</p>
+          <p class="text-xs font-medium text-slate-400 mt-1">Campus Items Logged</p>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center">
+          <p class="text-2xl sm:text-3xl font-extrabold text-emerald-400">780</p>
+          <p class="text-xs font-medium text-slate-400 mt-1">Items Reunited</p>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center">
+          <p class="text-2xl sm:text-3xl font-extrabold text-cyan-400">4h 32m</p>
+          <p class="text-xs font-medium text-slate-400 mt-1">Average Recovery Speed</p>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center">
+          <p class="text-2xl sm:text-3xl font-extrabold text-purple-400">78 / 100</p>
+          <p class="text-xs font-medium text-slate-400 mt-1">Campus Recovery Impact</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== VIEW 2: CAMPUS FEED ==================== -->
+    <section id="view-feed" class="hidden space-y-6" aria-label="Campus Item Explorer">
+      
+      <!-- Feed Header & Controls -->
+      <div class="glass-panel p-6 rounded-2xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Campus Lost & Found Feed</h2>
+            <p class="text-xs text-slate-400">Every item is continuously indexed and cross-matched in real time.</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="openReportModal('LOST')" class="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold flex items-center gap-1.5 transition focus:outline-none focus:ring-2 focus:ring-rose-400" aria-label="Report Lost Item">
+              <i data-lucide="plus" class="w-4 h-4" aria-hidden="true"></i> Report Lost
+            </button>
+            <button onclick="openReportModal('FOUND')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition focus:outline-none focus:ring-2 focus:ring-emerald-400" aria-label="Report Found Item">
+              <i data-lucide="plus" class="w-4 h-4" aria-hidden="true"></i> Report Found
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+          
+          <div class="relative">
+            <label for="feedSearchInput" class="sr-only">Search item keywords</label>
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3" aria-hidden="true"></i>
+            <input type="text" id="feedSearchInput" oninput="debounceFeedSearch()" placeholder="Search earbuds, macbook, keys, wallet..." class="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <div>
+            <label for="feedTypeFilter" class="sr-only">Filter by Report Type</label>
+            <select id="feedTypeFilter" onchange="loadFeedItems()" class="w-full px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">All Reports (Lost & Found)</option>
+              <option value="LOST">🔴 Lost Items Only</option>
+              <option value="FOUND">🟢 Found Items Only</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="feedCategoryFilter" class="sr-only">Filter by Category</label>
+            <select id="feedCategoryFilter" onchange="loadFeedItems()" class="w-full px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="All">All Categories</option>
+              <option value="Electronics">Electronics (Laptops, Earbuds, Phones)</option>
+              <option value="Wallet">Wallets & Cardholders</option>
+              <option value="ID Card">ID Cards & Badges</option>
+              <option value="Keys">Keys & Keychains</option>
+              <option value="Bag">Bags & Backpacks</option>
+              <option value="Books">Books & Course Notes</option>
+              <option value="Accessories">Accessories & Watches</option>
+              <option value="Clothing">Clothing & Hoodies</option>
+              <option value="Documents">Official Documents</option>
+              <option value="Other">Other Items</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="feedZoneFilter" class="sr-only">Filter by Campus Zone</label>
+            <select id="feedZoneFilter" onchange="loadFeedItems()" class="w-full px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="All">All Campus Zones</option>
+              <option value="Central Library">Central Library</option>
+              <option value="Student Cafeteria">Student Cafeteria</option>
+              <option value="Computer Science Lab">Computer Science Lab</option>
+              <option value="Main Auditorium">Main Auditorium</option>
+              <option value="Classroom Block A">Classroom Block A</option>
+              <option value="Playground & Sports Complex">Playground & Sports Complex</option>
+              <option value="Campus Parking Area">Campus Parking Area</option>
+              <option value="Student Hostel Block">Student Hostel Block</option>
+              <option value="Main Bus Stop">Main Bus Stop</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Items Grid Container -->
+      <div id="feedGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+
+      <div id="feedEmptyState" class="hidden glass-panel p-12 rounded-2xl text-center space-y-3">
+        <i data-lucide="package-search" class="w-12 h-12 text-slate-500 mx-auto" aria-hidden="true"></i>
+        <h3 class="text-base font-semibold text-slate-200">No matching items found</h3>
+        <p class="text-xs text-slate-400">Try adjusting your search query or campus zone filter.</p>
+      </div>
+
+    </section>
+
+    <!-- ==================== VIEW 3: SMART MATCHES HUB ==================== -->
+    <section id="view-matches" class="hidden space-y-6" aria-label="AI Smart Matches Hub">
+      
+      <div class="glass-panel p-6 rounded-2xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-semibold mb-2">
+              <i data-lucide="flame" class="w-3.5 h-3.5 fill-current" aria-hidden="true"></i> Explainable AI Matching
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-white">Smart Match Suggestions</h2>
+            <p class="text-xs text-slate-400">Continuous multi-factor analysis paired with natural language explanations.</p>
+          </div>
+
+          <button onclick="recalculateMatches()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center gap-1.5 transition focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Recalculate all AI matches">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5" aria-hidden="true"></i> Recalculate Engine
+          </button>
+        </div>
+      </div>
+
+      <!-- Matches List Container -->
+      <div id="matchesContainer" class="space-y-6"></div>
+
+    </section>
+
+    <!-- ==================== VIEW 4: CAMPUS INTELLIGENCE CENTER ==================== -->
+    <section id="view-intelligence" class="hidden space-y-8" aria-label="Campus Intelligence Center">
+      
+      <div class="glass-panel p-6 sm:p-8 rounded-3xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-bold tracking-wide">
+              🏫 Campus Administrative Operations
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Campus Intelligence Center</h2>
+            <p class="text-xs sm:text-sm text-slate-400">Actionable insights, hot-spot mitigation strategies, and recovery speed analytics.</p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-right">
+            <span class="text-[10px] text-purple-300 font-bold uppercase tracking-wider block">Campus Recovery Impact</span>
+            <span class="text-2xl font-extrabold text-white">78 / 100 <span class="text-emerald-400 text-xs">Improving</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actionable Administrative Insight Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- High-Risk Zone Card -->
+        <div class="glass-panel p-6 rounded-2xl space-y-3 border-l-4 border-l-rose-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="alert-triangle" class="w-4 h-4"></i> 🔥 High-Risk Zone
+            </span>
+            <span class="text-xs font-extrabold text-rose-400">28% of Losses</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Central Library</h3>
+          <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <span class="font-semibold text-cyan-300">Actionable Advice:</span> Designate a monitored smart drop-station near the library exit to intercept misplaced electronics and backpacks.
+          </p>
+        </div>
+
+        <!-- High-Risk Time Window -->
+        <div class="glass-panel p-6 rounded-2xl space-y-3 border-l-4 border-l-amber-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="clock" class="w-4 h-4"></i> ⏰ Peak Loss Window
+            </span>
+            <span class="text-xs font-extrabold text-amber-300">12 PM – 2 PM</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">Midday Class Rotations</h3>
+          <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <span class="font-semibold text-cyan-300">Observation:</span> 42% of items are left during cafeteria lunch rushes and lecture transitions between blocks.
+          </p>
+        </div>
+
+        <!-- Recovery Speed Metric -->
+        <div class="glass-panel p-6 rounded-2xl space-y-3 border-l-4 border-l-emerald-500">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="zap" class="w-4 h-4"></i> ⚡ Recovery Speed
+            </span>
+            <span class="text-xs font-extrabold text-emerald-400">4h 32m Avg</span>
+          </div>
+          <h3 class="text-lg font-bold text-white">74% Speed Improvement</h3>
+          <p class="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <span class="font-semibold text-cyan-300">Fastest Recovery:</span> 35 minutes via continuous matching and immediate push notifications.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Interactive SVG Campus Map -->
+      <div class="glass-panel p-6 rounded-3xl space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+            <i data-lucide="map-pin" class="w-4 h-4 text-blue-400" aria-hidden="true"></i> Interactive Campus Spatial Heatmap
+          </h3>
+          <span class="text-xs text-slate-400">Click any zone to filter verified reports</span>
+        </div>
+
+        <div class="relative bg-slate-950/80 rounded-2xl p-6 border border-slate-800 overflow-hidden">
+          <svg viewBox="0 0 900 450" class="w-full h-auto select-none" role="img" aria-label="Interactive Map of Campus Facilities and Hotspots">
+            <path d="M 100 225 L 800 225 M 450 60 L 450 390 M 250 120 L 650 330" stroke="#1E293B" stroke-width="8" stroke-dasharray="6,6" fill="none" />
+
+            <g class="map-hotspot" onclick="filterFeedByZone('Central Library')" role="button" tabindex="0" aria-label="Central Library: 28% of losses">
+              <rect x="60" y="50" width="200" height="110" rx="16" fill="#1E3E62" stroke="#3B82F6" stroke-width="2" opacity="0.9" />
+              <text x="160" y="95" fill="#FFFFFF" font-size="14" font-weight="bold" text-anchor="middle">Central Library</text>
+              <text x="160" y="120" fill="#60A5FA" font-size="11" text-anchor="middle">🔥 Hotspot: 28% of Losses</text>
+              <circle cx="235" cy="70" r="14" fill="#EF4444" />
+              <text x="235" y="74" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">1</text>
+            </g>
+
+            <g class="map-hotspot" onclick="filterFeedByZone('Student Cafeteria')" role="button" tabindex="0" aria-label="Student Cafeteria: 20% of losses">
+              <rect x="640" y="50" width="200" height="110" rx="16" fill="#1E3E62" stroke="#06B6D4" stroke-width="2" opacity="0.9" />
+              <text x="740" y="95" fill="#FFFFFF" font-size="14" font-weight="bold" text-anchor="middle">Student Cafeteria</text>
+              <text x="740" y="120" fill="#38BDF8" font-size="11" text-anchor="middle">🔥 Hotspot: 20% of Losses</text>
+              <circle cx="815" cy="70" r="14" fill="#EF4444" />
+              <text x="815" y="74" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">2</text>
+            </g>
+
+            <g class="map-hotspot" onclick="filterFeedByZone('Computer Science Lab')" role="button" tabindex="0" aria-label="Computer Science Lab: 15% of losses">
+              <rect x="350" y="160" width="200" height="110" rx="16" fill="#1E3E62" stroke="#8B5CF6" stroke-width="2" opacity="0.9" />
+              <text x="450" y="205" fill="#FFFFFF" font-size="14" font-weight="bold" text-anchor="middle">Computer Science Lab</text>
+              <text x="450" y="230" fill="#C084FC" font-size="11" text-anchor="middle">Turing Block: 15%</text>
+              <circle cx="525" cy="180" r="14" fill="#10B981" />
+              <text x="525" y="184" fill="#FFFFFF" font-size="10" font-weight="bold" text-anchor="middle">3</text>
+            </g>
+
+            <g class="map-hotspot" onclick="filterFeedByZone('Main Auditorium')" role="button" tabindex="0" aria-label="Main Auditorium: 12% of losses">
+              <rect x="60" y="280" width="200" height="110" rx="16" fill="#1E3E62" stroke="#F59E0B" stroke-width="2" opacity="0.9" />
+              <text x="160" y="325" fill="#FFFFFF" font-size="14" font-weight="bold" text-anchor="middle">Main Auditorium</text>
+              <text x="160" y="350" fill="#FBBF24" font-size="11" text-anchor="middle">Arts Complex: 12%</text>
+            </g>
+
+            <g class="map-hotspot" onclick="filterFeedByZone('Playground & Sports Complex')" role="button" tabindex="0" aria-label="Sports Complex: 7% of losses">
+              <rect x="640" y="280" width="200" height="110" rx="16" fill="#1E3E62" stroke="#10B981" stroke-width="2" opacity="0.9" />
+              <text x="740" y="325" fill="#FFFFFF" font-size="14" font-weight="bold" text-anchor="middle">Sports Complex</text>
+              <text x="740" y="350" fill="#34D399" font-size="11" text-anchor="middle">Athletic Pavilion: 7%</text>
+            </g>
+
+            <g class="map-hotspot" onclick="filterFeedByZone('Main Bus Stop')" role="button" tabindex="0" aria-label="Transit Bus Stop">
+              <rect x="375" y="340" width="150" height="60" rx="12" fill="#0F172A" stroke="#64748B" stroke-width="1.5" />
+              <text x="450" y="375" fill="#CBD5E1" font-size="12" font-weight="600" text-anchor="middle">Transit Bus Stop</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Analytics Charts -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="glass-panel p-6 rounded-2xl space-y-4">
+          <h3 class="text-sm font-bold text-slate-200">Category Distribution</h3>
+          <div class="h-64 relative flex items-center justify-center">
+            <canvas id="categoryChart" aria-label="Doughnut chart of lost items by category" role="img"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl space-y-4">
+          <h3 class="text-sm font-bold text-slate-200">Hourly Loss Frequency (Peak Windows)</h3>
+          <div class="h-64 relative flex items-center justify-center">
+            <canvas id="hourlyChart" aria-label="Line chart of loss reports by hour" role="img"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== VIEW 5: USER DASHBOARD ==================== -->
+    <section id="view-dashboard" class="hidden space-y-8" aria-label="Student User Dashboard">
+      
+      <div class="glass-panel p-6 rounded-2xl">
+        <h2 class="text-xl sm:text-2xl font-bold text-white">My Campus Vault</h2>
+        <p class="text-xs text-slate-400">Track your reported items, active claims, and Recovery Intelligence timelines.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="glass-panel p-6 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <h3 class="text-sm font-bold text-rose-400 flex items-center gap-1.5">
+              <i data-lucide="help-circle" class="w-4 h-4"></i> My Reported Lost Items
+            </h3>
+            <button onclick="openReportModal('LOST')" class="text-xs text-blue-400 hover:underline">+ New Report</button>
+          </div>
+          <div id="userLostList" class="space-y-3"></div>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+              <i data-lucide="check-circle-2" class="w-4 h-4"></i> My Found Items & Active Claims
+            </h3>
+            <button onclick="openReportModal('FOUND')" class="text-xs text-blue-400 hover:underline">+ Report Found</button>
+          </div>
+          <div id="userFoundList" class="space-y-3"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== VIEW 6: SECURITY & ADMIN ==================== -->
+    <section id="view-admin" class="hidden space-y-8" aria-label="Campus Security Control Panel">
+      
+      <div class="glass-panel p-6 rounded-2xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-semibold">Campus Security Control Center</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">Moderation & Handover Desk</h2>
+            <p class="text-xs text-slate-400">Review high-value claims, confirm handovers, and manage audit trails.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-300">
+            Current Operator: <span id="adminOperatorName" class="font-bold text-white">Officer Marcus</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl space-y-4">
+        <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+          <i data-lucide="clipboard-check" class="w-4 h-4 text-amber-400"></i> Pending Ownership Claims for Moderation
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-800">
+              <tr>
+                <th class="p-3">Claimant</th>
+                <th class="p-3">Target Item</th>
+                <th class="p-3">Verification Score</th>
+                <th class="p-3">Submitted Answer</th>
+                <th class="p-3">Status</th>
+                <th class="p-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminClaimsTableBody" class="divide-y divide-slate-800"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl space-y-4">
+        <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+          <i data-lucide="handshake" class="w-4 h-4 text-emerald-400"></i> Scheduled Safe Handovers
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-900/80 text-slate-400 uppercase font-semibold border-b border-slate-800">
+              <tr>
+                <th class="p-3">Item</th>
+                <th class="p-3">Station Location</th>
+                <th class="p-3">Owner</th>
+                <th class="p-3">Finder / Custodian</th>
+                <th class="p-3">Confirmations</th>
+                <th class="p-3">Moderator Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminHandoversTableBody" class="divide-y divide-slate-800"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== ACCESSIBLE MODALS ==================== -->
+
+  <!-- 1. MULTI-STEP REPORT MODAL WITH DUPLICATE WARNING -->
+  <div id="reportModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
+    <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border border-slate-700">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div>
+          <span id="reportModalTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30">Step Wizard</span>
+          <h3 id="reportModalTitle" class="text-xl font-bold text-white mt-1">Report a Lost Item</h3>
+        </div>
+        <button onclick="closeReportModal()" class="p-2 text-slate-400 hover:text-white rounded-lg bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Close Report Modal">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Step Indicator -->
+      <div class="flex items-center justify-between text-xs text-slate-400 px-2">
+        <span id="stepLabel1" class="font-bold text-blue-400">1. Item Details</span>
+        <span class="w-8 h-px bg-slate-700"></span>
+        <span id="stepLabel2" class="font-normal">2. Campus Location</span>
+        <span class="w-8 h-px bg-slate-700"></span>
+        <span id="stepLabel3" class="font-normal">3. Private Vault & Photo</span>
+      </div>
+
+      <!-- Duplicate Alert Banner -->
+      <div id="duplicateWarningBanner" class="hidden p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-300 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+          <span id="duplicateWarningMsg">Similar item previously reported in this zone.</span>
+        </div>
+        <button type="button" onclick="dismissDuplicateWarning()" class="text-[10px] underline">Continue Anyway</button>
+      </div>
+
+      <form id="reportItemForm" onsubmit="handleItemReportSubmit(event)">
+        
+        <!-- STEP 1: ITEM DETAILS -->
+        <div id="wizardStep1" class="space-y-4">
+          <div>
+            <label for="repItemName" class="block text-xs font-semibold text-slate-300 mb-1">Item Name *</label>
+            <input type="text" id="repItemName" required placeholder="e.g., Black JBL Wireless Earbuds" onblur="checkDuplicateSubmission()" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label for="repCategory" class="block text-xs font-semibold text-slate-300 mb-1">Category *</label>
+              <select id="repCategory" required onchange="handleCategoryChange()" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <option value="Electronics">Electronics</option>
+                <option value="Wallet">Wallet</option>
+                <option value="ID Card">ID Card</option>
+                <option value="Keys">Keys</option>
+                <option value="Bag">Bag</option>
+                <option value="Books">Books</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Documents">Documents</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="repBrand" class="block text-xs font-semibold text-slate-300 mb-1">Brand</label>
+              <input type="text" id="repBrand" placeholder="e.g., JBL, Apple, Hydro Flask" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </div>
+
+            <div>
+              <label for="repColor" class="block text-xs font-semibold text-slate-300 mb-1">Primary Color *</label>
+              <input type="text" id="repColor" required placeholder="e.g., Black, Navy Blue, Silver" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </div>
+          </div>
+
+          <div id="highValueFormBadge" class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-2 text-xs text-amber-300">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i>
+            <span><strong>🔐 High-Value Secure Recovery Active:</strong> Extra ownership challenge required to protect personal devices.</span>
+          </div>
+
+          <div>
+            <label for="repDescription" class="block text-xs font-semibold text-slate-300 mb-1">Public Description *</label>
+            <textarea id="repDescription" required rows="3" placeholder="Describe general appearance, case type, where you last recall seeing it..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+          </div>
+
+          <div class="flex justify-end pt-2">
+            <button type="button" onclick="goToWizardStep(2)" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              Next: Location & Time <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: LOCATION & TIME -->
+        <div id="wizardStep2" class="hidden space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="repZone" class="block text-xs font-semibold text-slate-300 mb-1">Campus Zone *</label>
+              <select id="repZone" required onchange="checkDuplicateSubmission()" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <option value="Central Library">Central Library</option>
+                <option value="Student Cafeteria">Student Cafeteria</option>
+                <option value="Computer Science Lab">Computer Science Lab</option>
+                <option value="Main Auditorium">Main Auditorium</option>
+                <option value="Classroom Block A">Classroom Block A</option>
+                <option value="Playground & Sports Complex">Playground & Sports Complex</option>
+                <option value="Campus Parking Area">Campus Parking Area</option>
+                <option value="Student Hostel Block">Student Hostel Block</option>
+                <option value="Main Bus Stop">Main Bus Stop</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="repBuilding" class="block text-xs font-semibold text-slate-300 mb-1">Building & Floor *</label>
+              <input type="text" id="repBuilding" required placeholder="e.g., Library 2nd Floor" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="repDateTime" class="block text-xs font-semibold text-slate-300 mb-1">Date & Time *</label>
+              <input type="text" id="repDateTime" required placeholder="e.g., 2026-08-22 10:30" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </div>
+
+            <div>
+              <label for="repSpot" class="block text-xs font-semibold text-slate-300 mb-1">Specific Spot / Desk</label>
+              <input type="text" id="repSpot" placeholder="e.g., Desk 42 near window" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            </div>
+          </div>
+
+          <div id="foundCustodySection" class="hidden">
+            <label for="repCustody" class="block text-xs font-semibold text-slate-300 mb-1">Current Item Custody Location *</label>
+            <select id="repCustody" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="With Finder">With Finder (I have it with me)</option>
+              <option value="Campus security">Campus Security Office</option>
+              <option value="Lost and Found office">Lost & Found Desk (Student Center)</option>
+              <option value="Department office">Department Office</option>
+            </select>
+          </div>
+
+          <div class="flex justify-between pt-2">
+            <button type="button" onclick="goToWizardStep(1)" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400">Back</button>
+            <button type="button" onclick="goToWizardStep(3)" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              Next: Verification Vault <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3: PRIVATE IDENTIFICATION VAULT & DIRECT FILE UPLOAD -->
+        <div id="wizardStep3" class="hidden space-y-4">
+          <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 space-y-1">
+            <div class="flex items-center gap-1.5 font-bold">
+              <i data-lucide="lock" class="w-3.5 h-3.5"></i> Zero-Leak Privacy Vault
+            </div>
+            <p class="text-[11px] text-slate-300">
+              Information entered below will <span class="font-bold text-amber-300">NEVER be shown publicly</span>. It is strictly used by the AI engine to verify rightful owners during claim challenges.
+            </p>
+          </div>
+
+          <div>
+            <label for="repPrivateDetails" class="block text-xs font-semibold text-slate-300 mb-1">Private Identifying Secret Mark / Contents</label>
+            <textarea id="repPrivateDetails" rows="2" placeholder="e.g., Small red sticker inside charging case lid, partial serial number, custom engraving, or specific items inside." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+          </div>
+
+          <!-- Direct Photo File Drag-and-Drop Uploader -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Upload Photo (Drag & Drop or Select File)</label>
+            <div id="fileDropZone" onclick="document.getElementById('fileUploadInput').click()" class="border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer bg-slate-900/60 transition space-y-2">
+              <i data-lucide="upload-cloud" class="w-8 h-8 text-slate-400 mx-auto"></i>
+              <p class="text-xs text-slate-300">Click to upload photo or drag & drop</p>
+              <p class="text-[10px] text-slate-500">JPG, PNG, WebP up to 5MB</p>
+              <input type="file" id="fileUploadInput" onchange="handleDirectFileUpload(event)" accept="image/*" class="hidden" />
+            </div>
+            <div id="uploadPreviewContainer" class="hidden mt-2 flex items-center gap-3 p-2 bg-slate-900 rounded-xl border border-slate-800">
+              <img id="uploadPreviewImg" src="" alt="Upload Preview" class="w-12 h-12 rounded-lg object-cover" />
+              <div class="flex-1 text-xs truncate">
+                <p id="uploadFileName" class="text-white font-semibold truncate"></p>
+                <p class="text-emerald-400 text-[10px]">Ready to submit</p>
+              </div>
+            </div>
+            <input type="hidden" id="repImage" />
+          </div>
+
+          <!-- Quick Fill Sample Presets for Hackathon Judges -->
+          <div class="pt-2">
+            <p class="text-[11px] text-slate-400 mb-1.5">⚡ Fast Hackathon Test Presets:</p>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" onclick="fillPreset('EARBUDS')" class="px-2.5 py-1 text-[10px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700">🎧 JBL Earbuds</button>
+              <button type="button" onclick="fillPreset('MACBOOK')" class="px-2.5 py-1 text-[10px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700">💻 MacBook Air</button>
+              <button type="button" onclick="fillPreset('WALLET')" class="px-2.5 py-1 text-[10px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700">👛 Coach Wallet</button>
+            </div>
+          </div>
+
+          <div class="flex justify-between pt-3 border-t border-slate-800">
+            <button type="button" onclick="goToWizardStep(2)" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400">Back</button>
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 transition focus:outline-none focus:ring-2 focus:ring-blue-400">
+              Submit & Trigger AI Matching 🚀
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- 2. DETAILED ITEM VIEW & RECOVERY INTELLIGENCE MODAL -->
+  <div id="itemDetailModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="itemDetailModalTitle">
+    <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 space-y-5 max-h-[90vh] overflow-y-auto border border-slate-700">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span id="detailItemTypeBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300">LOST</span>
+          <h3 id="itemDetailModalTitle" class="text-lg font-bold text-white">Item Detail</h3>
+          <span id="detailHighValueBadge" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider badge-secure-mode">🔐 Secure Recovery</span>
+        </div>
+        <button onclick="closeItemDetailModal()" class="p-2 text-slate-400 hover:text-white rounded-lg bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Close Item Details">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- RECOVERY INTELLIGENCE ENGINE HERO CARD -->
+      <div id="detailIntelligenceCard" class="p-5 rounded-2xl bg-gradient-to-r from-blue-900/30 via-indigo-900/30 to-purple-900/30 border border-blue-500/30 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
+            <i data-lucide="cpu" class="w-4 h-4 animate-pulse"></i> 🧠 Recovery Intelligence Engine
+          </span>
+          <span id="detailProbBadge" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">78% Recovery (High)</span>
+        </div>
+
+        <p id="detailProbExplanation" class="text-xs text-slate-200 leading-relaxed"></p>
+
+        <!-- Smart Next Action Banner -->
+        <div id="detailNextActionBox" class="p-3 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-between gap-3">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">⚡ Recommended Next Action</span>
+            <p id="detailNextActionMsg" class="text-xs font-semibold text-white"></p>
+          </div>
+          <button id="detailActionBtn" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow transition flex-shrink-0">
+            Action
+          </button>
+        </div>
+      </div>
+
+      <!-- Item Meta Details Grid -->
+      <div class="space-y-4 text-xs">
+        <div class="h-44 rounded-2xl overflow-hidden bg-slate-900">
+          <img id="detailItemImg" src="" alt="Item photo" class="w-full h-full object-cover" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 p-3 bg-slate-900/70 rounded-2xl border border-slate-800">
+          <div>
+            <span class="text-slate-500">Category:</span>
+            <p id="detailItemCategory" class="font-bold text-white mt-0.5"></p>
+          </div>
+          <div>
+            <span class="text-slate-500">Campus Location:</span>
+            <p id="detailItemLocation" class="font-bold text-white mt-0.5"></p>
+          </div>
+          <div>
+            <span class="text-slate-500">Reported Time:</span>
+            <p id="detailItemTime" class="font-bold text-white mt-0.5"></p>
+          </div>
+          <div>
+            <span class="text-slate-500">Custody Status:</span>
+            <p id="detailItemCustody" class="font-bold text-cyan-400 mt-0.5"></p>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-slate-500">Public Description:</span>
+          <p id="detailItemDescription" class="text-slate-300 mt-1 leading-relaxed bg-slate-950/60 p-3 rounded-xl border border-slate-800"></p>
+        </div>
+
+        <!-- 5-STAGE SMART RECOVERY TIMELINE -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="git-commit" class="w-4 h-4 text-blue-400"></i> Smart Recovery Progression Timeline
+          </h4>
+          <div id="detailTimelineContainer" class="space-y-3 pl-5"></div>
+        </div>
+
+        <div id="detailPrivateVaultContainer" class="hidden p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 space-y-1">
+          <span class="font-bold text-amber-400 flex items-center gap-1.5">
+            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Private Identification Details (Authorized View)
+          </span>
+          <p id="detailItemPrivateDetails" class="text-slate-200 italic"></p>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <button onclick="closeItemDetailModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold focus:outline-none">Close</button>
+        <button id="detailClaimBtn" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-purple-400">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Claim This Item
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. THE "MATCH MOMENT" INTERACTIVE ANIMATION MODAL -->
+  <div id="matchMomentModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-lg" role="dialog" aria-modal="true" aria-labelledby="matchMomentTitle">
+    <div class="glass-panel w-full max-w-xl rounded-3xl p-6 sm:p-8 space-y-6 border border-cyan-500/40 glow-blue">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
+            <i data-lucide="sparkles" class="w-4 h-4 animate-spin"></i>
+          </div>
+          <div>
+            <h3 id="matchMomentTitle" class="text-base font-extrabold text-white">Recovery Intelligence Engine Active</h3>
+            <p class="text-xs text-slate-400">Scanning campus database for candidate connections...</p>
+          </div>
+        </div>
+        <button onclick="closeMatchMomentModal()" class="p-1.5 text-slate-400 hover:text-white rounded-lg bg-slate-800">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Animated Scanner Simulation Box -->
+      <div id="matchMomentScannerBox" class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between text-xs">
+          <span id="scanStageText" class="font-bold text-cyan-400 animate-pulse">Analyzing item description...</span>
+          <span id="scanPercentText" class="font-extrabold text-white">30%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div id="scanProgressBar" class="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 rounded-full transition-all duration-300" style="width: 30%"></div>
+        </div>
+      </div>
+
+      <!-- Match Reveal Section (Initially Hidden) -->
+      <div id="matchMomentRevealBox" class="hidden p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-4 animate-in zoom-in-95">
+        <div class="flex items-center justify-between">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300">🎯 91% Match Detected</span>
+          <span class="text-xs text-slate-300">Central Library Entrance</span>
+        </div>
+
+        <h4 id="matchRevealItemName" class="text-lg font-bold text-white">Black JBL Wireless Earbuds</h4>
+
+        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-200 leading-relaxed">
+          <span class="font-semibold text-cyan-300">Why We Think This Is Your Item:</span>
+          <p id="matchRevealExplanation" class="mt-1 text-slate-300"></p>
+        </div>
+
+        <button id="matchMomentClaimBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-purple-500/25 transition flex items-center justify-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>Verify Ownership (Private Quiz)</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4. OWNERSHIP VERIFICATION & CLAIM MODAL -->
+  <div id="claimModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="claimModalTitle">
+    <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-5 border border-slate-700">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30">Secure Ownership Quiz</span>
+          <h3 id="claimModalTitle" class="text-lg font-bold text-white mt-1">Verify Rightful Ownership</h3>
+        </div>
+        <button onclick="closeClaimModal()" class="p-2 text-slate-400 hover:text-white rounded-lg bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Close Ownership Claim Modal">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div id="claimItemSummary" class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 text-xs space-y-1"></div>
+
+      <div class="space-y-3">
+        <label for="claimAnswerInput" class="block text-xs font-semibold text-slate-200">
+          🔒 Verification Challenge: Describe the unique secret mark, sticker, or contents of this item.
+        </label>
+        <textarea id="claimAnswerInput" rows="3" placeholder="e.g., Small red sticker inside the charging case lid..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-400"></textarea>
+        
+        <button type="button" onclick="fillClaimDemoAnswer()" class="text-[11px] text-purple-400 hover:underline focus:outline-none">
+          ⚡ Auto-fill Flagship Demo Answer ("Small red sticker inside the charging case.")
+        </button>
+      </div>
+
+      <div id="claimEvaluationResult" class="hidden p-4 rounded-2xl space-y-2 border" aria-live="polite"></div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeClaimModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold focus:outline-none">Cancel</button>
+        <button id="submitClaimBtn" onclick="submitOwnershipClaim()" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-purple-400">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Evaluate Proof
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. SAFE HANDOVER MODAL -->
+  <div id="handoverModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="handoverModalTitle">
+    <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-5 border border-slate-700">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Verified Handover Desk</span>
+          <h3 id="handoverModalTitle" class="text-lg font-bold text-white mt-1">Arrange Safe Custody Handover</h3>
+        </div>
+        <button onclick="closeHandoverModal()" class="p-2 text-slate-400 hover:text-white rounded-lg bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Close Handover Modal">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label for="handoverStation" class="block font-semibold text-slate-300 mb-1">Approved Campus Station *</label>
+          <select id="handoverStation" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <option value="Campus Security Office (Library Entrance Desk)">Campus Security Office (Library Entrance Desk)</option>
+            <option value="Student Center Lost & Found Desk (Room 104)">Student Center Lost & Found Desk (Room 104)</option>
+            <option value="Computer Science Department Office (Turing 102)">Computer Science Department Office (Turing 102)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="handoverTime" class="block font-semibold text-slate-300 mb-1">Pickup Schedule Time *</label>
+          <input type="text" id="handoverTime" value="Today, 2:00 PM" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <div>
+          <label for="handoverNotes" class="block font-semibold text-slate-300 mb-1">Special Handover Notes</label>
+          <input type="text" id="handoverNotes" placeholder="e.g., Please bring your student ID card for identity verification." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeHandoverModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold focus:outline-none">Close</button>
+        <button onclick="submitHandoverSchedule()" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition focus:outline-none focus:ring-2 focus:ring-emerald-400">
+          Confirm Schedule & Notify 🏛️
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 6. QR CODE TAG MODAL -->
+  <div id="qrModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="qrItemName">
+    <div class="glass-panel w-full max-w-sm rounded-3xl p-6 text-center space-y-4 border border-slate-700">
+      <div class="flex justify-end">
+        <button onclick="closeQrModal()" class="p-1.5 text-slate-400 hover:text-white rounded-lg bg-slate-800" aria-label="Close QR modal">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="p-4 bg-white rounded-2xl inline-block shadow-xl">
+        <img id="qrImageElement" src="" alt="Item QR Code Asset Tag" class="w-48 h-48 mx-auto" />
+      </div>
+
+      <div class="space-y-1">
+        <h4 id="qrItemName" class="font-bold text-white text-sm">Item Name</h4>
+        <p class="text-[11px] text-slate-400">Campus Physical Security Asset Tag</p>
+      </div>
+
+      <div class="p-3 bg-slate-900/90 rounded-xl text-left text-[11px] text-slate-300 space-y-1">
+        <p>🔒 <span class="font-semibold">Security Note:</span> Scanning this QR tag reveals safe item tracking status while strictly redacting owner identity and private marks.</p>
+      </div>
+
+      <button onclick="window.print()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-blue-400">
+        Print Physical Tag Badge 🖨️
+      </button>
+    </div>
+  </div>
+
+  <!-- 7. 🚀 3-MINUTE HACKATHON LIVE DEMO FLOW MODAL -->
+  <div id="demoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-lg" role="dialog" aria-modal="true" aria-labelledby="demoModalTitle">
+    <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/30 glow-purple">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center" aria-hidden="true">
+            <i data-lucide="play" class="w-4 h-4 text-white fill-current"></i>
+          </div>
+          <div>
+            <h3 id="demoModalTitle" class="text-lg font-extrabold text-white">Live Hackathon Showcase Simulator</h3>
+            <p class="text-xs text-slate-400">Autonomous 9-step item recovery journey</p>
+          </div>
+        </div>
+        <button onclick="closeDemoModal()" class="p-2 text-slate-400 hover:text-white rounded-lg bg-slate-800/80 focus:outline-none focus:ring-2 focus:ring-blue-400" aria-label="Close Demo Simulator">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div id="demoStageContainer" class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-4">
+        <div id="demoStepProgress" class="space-y-3" aria-live="polite">
+          <p class="text-xs text-slate-400">Click below to launch the automated AI recovery sequence.</p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <span class="text-[11px] text-slate-400">Flagship Case: Black JBL Wireless Earbuds</span>
+        <button id="runDemoSequenceBtn" onclick="startAutomatedDemoSequence()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-purple-500/25 transition transform hover:scale-105 active:scale-95 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-purple-400" aria-label="Start Automated Recovery Simulation">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>Run 3-Minute Live Demo</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none" aria-live="assertive" role="status"></div>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-800/80 bg-[#0B192C] py-6 text-center text-xs text-slate-400" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p><span class="font-bold text-slate-200">CampusConnect AI</span> — Intelligent Campus Item Recovery Network</p>
+      <p class="text-slate-500">Autonomous Explainable AI • Zero-Leak Privacy Vault</p>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript Application Logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>

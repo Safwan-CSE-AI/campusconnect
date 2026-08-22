@@ -1,0 +1,45 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Database (do not commit real data)
+campusconnect.db
+campusconnect.db-shm
+campusconnect.db-wal
+*.db
+*.sqlite
+
+# Uploads (user-generated content)
+uploads/
+!uploads/.gitkeep
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env
+
+# Environment variables / secrets
+.env.local
+.env.production
+*.env
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution
+dist/
+build/
